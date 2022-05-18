@@ -1,13 +1,9 @@
-import Sequelize from 'sequelize';
-import dotenv from 'dotenv';
-dotenv.config();
-const sequelize = new Sequelize(process.env.NAME_DB, process.env.USER_DB, process.env.PASSWORD_DB, {
-  host: process.env.HOST_DB,
-  dialect: 'mysql'
-});
+import "../models/User.js"
+import { sequelize } from './sequelize.js';
+
 const conectarDB = async () => {
   try {
-    await sequelize.authenticate();
+    await sequelize.sync({ alter: true });
     console.log("DB ONLINE");
   } catch (error) {
     console.log(error);
