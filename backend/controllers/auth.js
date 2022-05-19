@@ -23,10 +23,12 @@ export const loginUser = async (req, res) => {
       });
     }
 
-    const token = await generarJWT(user.user_id);
+    const { name, user_id } = user
+    const token = await generarJWT(user_id, name);
+
     res.json({
       ok: true,
-      user,
+      user: { name, user_id },
       token
     })
 
@@ -35,6 +37,37 @@ export const loginUser = async (req, res) => {
     res.status(500).json({
       ok: false,
       errors: [{ msg: "Server error" }]
+    })
+  }
+
+}
+export const renovarToken = async (req, res) => {
+
+  const { user } = req;
+
+  if (!user) {
+    return res.status(500).json({
+      ok: false,
+      errors: [{
+        msg: 'there is not user in request.'
+      }]
+    })
+  }
+  try {
+    const { name, user_id } = user
+    const token = await generarJWT(user_id, name);
+    res.json({
+      ok: true,
+      user: { name, user_id },
+      token
+    })
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      errors: [{
+        msg: 'token renew error'
+      }]
     })
   }
 
