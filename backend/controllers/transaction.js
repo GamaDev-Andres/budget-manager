@@ -19,3 +19,29 @@ export const createTransaction = async (req, res) => {
     })
   }
 }
+export const deleteTransaction = async (req, res) => {
+
+  const { id } = req.params
+  const { user_id } = req.user
+  try {
+
+    const transaction = await Transaction.findOne({ where: { transaction_id: id } })
+    if (transaction.user_id !== user_id) {
+      return res.status(403).json({
+        ok: false,
+        errors: [{ msg: "No tiene permiso de eliminar esta transaccion." }]
+      })
+    }
+    await transaction.destroy()
+    res.json({
+      ok: true,
+      transaction
+    })
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      errors: [{ msg: "Server error" }]
+    })
+  }
+}

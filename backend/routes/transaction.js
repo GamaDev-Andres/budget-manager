@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
-import { createTransaction } from '../controllers/transaction.js';
+import { createTransaction, deleteTransaction } from '../controllers/transaction.js';
 import { validateFields } from '../middlewares/validate-fields.js';
 import { validateJWT } from '../middlewares/validateJWT.js';
 const router = Router()
@@ -14,6 +14,6 @@ router.post("/", [
   check("category", "la categoria debe ser numerica").optional().isNumeric(),
   check("type", "el tipo es incorrecto").custom(type => type === "ingreso" || type === "egreso"),
 ], validateFields, createTransaction)
-
+router.delete("/:id", deleteTransaction)
 
 export default router
