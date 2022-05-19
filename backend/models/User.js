@@ -1,5 +1,8 @@
 import { DataTypes } from 'sequelize';
+
 import { sequelize } from '../config/sequelize.js';
+import { Transaction } from './Transaction.js';
+
 export const User = sequelize.define('users', {
   user_id: {
     type: DataTypes.INTEGER.UNSIGNED,
@@ -20,6 +23,12 @@ export const User = sequelize.define('users', {
     type: DataTypes.STRING,
     allowNull: false
   }
-}, {
-  // Other model options go here
-});
+}, { timestamps: false });
+
+User.hasMany(Transaction, {
+  foreignKey: {
+    name: "user_id",
+    allowNull: false,
+  },
+  sourceKey: "user_id"
+})

@@ -1,3 +1,5 @@
+import '../models/Category.js';
+import '../models/Transaction.js';
 import "../models/User.js"
 import { sequelize } from './sequelize.js';
 
