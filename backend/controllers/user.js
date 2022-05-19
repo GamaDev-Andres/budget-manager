@@ -12,9 +12,10 @@ export const createUser = async (req, res) => {
     const salt = bcryptjs.genSaltSync()
     user.password = bcryptjs.hashSync(password, salt)
     const [_, token] = await Promise.all([user.save(), generarJWT(user.user_id, user.name)])
+    const { user_id } = user
     res.json({
       ok: true,
-      user,
+      user: { name, user_id },
       token
     })
   } catch (error) {
