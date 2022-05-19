@@ -1,12 +1,13 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
-import { createTransaction, deleteTransaction, updateTransaction } from '../controllers/transaction.js';
+import { createTransaction, deleteTransaction, getTransactions, updateTransaction } from '../controllers/transaction.js';
 import { validateFields } from '../middlewares/validate-fields.js';
 import { validateJWT } from '../middlewares/validateJWT.js';
 const router = Router()
 
 /* /api/transaction */
 router.use(validateJWT)
+router.get("/", getTransactions)
 router.post("/", [
   check("value", "El valor debe ser tipo numero").custom(value => typeof value === "number"),
   check("value", "El valor debe ser mayor a 0").custom(value => value > 0),

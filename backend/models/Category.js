@@ -23,3 +23,10 @@ Category.hasMany(Transaction, {
   },
   sourceLey: "category_id"
 })
+Transaction.belongsTo(Category, {
+  foreignKey: {
+    name: "category_id",
+    allowNull: true
+  },
+  sourceLey: "category_id"
+})
