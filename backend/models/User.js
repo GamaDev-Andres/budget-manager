@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 
 import { sequelize } from '../config/sequelize.js';
+import { Category } from './Category.js';
 import { Transaction } from './Transaction.js';
 
 export const User = sequelize.define('users', {
@@ -26,6 +27,13 @@ export const User = sequelize.define('users', {
 }, { timestamps: false });
 
 User.hasMany(Transaction, {
+  foreignKey: {
+    name: "user_id",
+    allowNull: false,
+  },
+  sourceKey: "user_id"
+})
+User.hasMany(Category, {
   foreignKey: {
     name: "user_id",
     allowNull: false,
