@@ -21,7 +21,7 @@ export const createUser = async (req, res) => {
     console.log(error);
     res.status(500).json({
       ok: false,
-      msg: "Server error"
+      errors: [{ msg: "Server error" }]
     })
   }
 }
