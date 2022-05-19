@@ -11,11 +11,15 @@ export const Category = sequelize.define('categories', {
   },
   name: {
     type: DataTypes.STRING(100),
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
 }, { timestamps: false });
 
 Category.hasMany(Transaction, {
-  foreignKey: "category_id",
+  foreignKey: {
+    name: "category_id",
+    allowNull: true
+  },
   sourceLey: "category_id"
 })
