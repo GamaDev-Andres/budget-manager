@@ -9,7 +9,7 @@ module.exports = {
         node: true,
         es2021: true
     },
-    extends: ['plugin:react/recommended', 'plugin:react/jsx-runtime', 'standard', "prettier"],
+    extends: ['plugin:react/recommended', 'plugin:react/jsx-runtime', 'standard', 'prettier'],
     parserOptions: {
         ecmaFeatures: {
             jsx: true
@@ -32,7 +32,6 @@ module.exports = {
             rules: {
                 'no-undef': 'off',
                 'multiline-ternary': ['warn', 'never']
-
             }
         }
     ]
