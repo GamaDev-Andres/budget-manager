@@ -17,10 +17,9 @@ const AuthProvider = ({ children }) => {
         false
       )
       if (!response.ok) {
-        return response.errors[0]?.msg
+        return { error: response.errors[0]?.msg }
       }
       localStorage.setItem('token', response.token)
-
       setUser(response.user)
     } catch (error) {
       console.log(error)

@@ -1,13 +1,44 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import Spinner from '../../../components/Spinner'
+import useAuthContext from '../../../context/authContext/hook/useAuthContext'
 import useForm from '../../../hooks/useForm'
 
 const Login = () => {
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
   const { dataForm, handleChange } = useForm({ email: '', password: '' })
+
+  const isMounted = useRef(true)
+  const { handleLogin } = useAuthContext()
   const { email, password } = dataForm
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    isMounted.current = true
+    return () => {
+      isMounted.current = false
+    }
+  }, [])
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(dataForm)
+    if (password.trim().length < 6) {
+      setError({ msg: 'La contraseña debe tener minimo 6 caracteres' })
+      return
+    }
+    try {
+      setLoading(true)
+      const res = await handleLogin(dataForm)
+      if (isMounted.current) {
+        setLoading(false)
+      }
+      if (res?.error) {
+        setError({ msg: res.error })
+      }
+    } catch (error) {
+      console.log('error desde submit login')
+      console.log(error)
+    }
   }
 
   return (
@@ -41,11 +72,15 @@ const Login = () => {
         />
       </label>
       <button
-        className="w-full p-1 bg-blue-500 border border-blue-600 rounded-md active:bg-blue-600
+        disabled={loading}
+        className="flex items-center justify-center w-full p-1 bg-blue-500 border border-blue-600 rounded-md active:bg-blue-600
         transition-colors duration-300 text-white"
       >
-        Inciar Sesion
+        {loading ? <Spinner /> : 'Iniciar Sesion'}
       </button>
+      {error && (
+        <span className="text-red-600 text-sm text-center">{error.msg}</span>
+      )}
       <span className="text-sm ">
         ¿No tienes cuenta?{' '}
         <Link className="text-blue-600" to={'register'}>
