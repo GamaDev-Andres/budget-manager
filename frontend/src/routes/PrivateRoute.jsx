@@ -3,7 +3,7 @@ import useAuthContext from '../context/authContext/hook/useAuthContext'
 
 const PrivateRoute = () => {
   const { user } = useAuthContext()
-  return !user ? <Outlet /> : <Navigate to={'/home'} />
+  return !user ? <Outlet /> : <Navigate to={'/'} />
 }
 
 export default PrivateRoute
