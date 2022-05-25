@@ -25,6 +25,24 @@ const AuthProvider = ({ children }) => {
       console.log(error)
     }
   }, [])
+  const handleRegister = useCallback(async ({ email, password, name }) => {
+    try {
+      const urlPeticion = url + '/api/user'
+      const response = await customFetch(
+        urlPeticion,
+        'POST',
+        { email, password, name },
+        false
+      )
+      if (!response.ok) {
+        return { error: response.errors[0]?.msg }
+      }
+      localStorage.setItem('token', response.token)
+      setUser(response.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
 
   const renovarToken = useCallback(async () => {
     try {
@@ -48,7 +66,9 @@ const AuthProvider = ({ children }) => {
   }, [user])
 
   return (
-    <authContext.Provider value={{ user, renovarToken, handleLogin }}>
+    <authContext.Provider
+      value={{ user, renovarToken, handleLogin, handleRegister }}
+    >
       {children}
     </authContext.Provider>
   )

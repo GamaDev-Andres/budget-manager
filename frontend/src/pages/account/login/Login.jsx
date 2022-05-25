@@ -7,9 +7,9 @@ import useForm from '../../../hooks/useForm'
 const Login = () => {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
-  const { dataForm, handleChange } = useForm({ email: '', password: '' })
-
   const isMounted = useRef(true)
+
+  const { dataForm, handleChange } = useForm({ email: '', password: '' })
   const { handleLogin } = useAuthContext()
   const { email, password } = dataForm
 
@@ -36,7 +36,6 @@ const Login = () => {
         setError({ msg: res.error })
       }
     } catch (error) {
-      console.log('error desde submit login')
       console.log(error)
     }
   }
