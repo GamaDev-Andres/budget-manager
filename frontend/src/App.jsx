@@ -1,10 +1,12 @@
+import Nav from './components/Nav'
 import AuthProvider from './context/authContext/AuthProvider'
 import AppRouter from './routes/AppRouter'
 
 function App() {
   return (
     <AuthProvider>
-      <div className="bg-gray-200 min-h-screen text-black flex flex-col">
+      <div className="bg-white min-h-screen text-black flex flex-col">
+        <Nav />
         <AppRouter />
       </div>
     </AuthProvider>
