@@ -52,6 +52,7 @@ const AuthProvider = ({ children }) => {
         logOut()
         return response.errors[0]?.msg
       }
+      console.log(response)
       setUser(response.user)
     } catch (error) {
       console.log(error)
@@ -67,7 +68,7 @@ const AuthProvider = ({ children }) => {
 
   return (
     <authContext.Provider
-      value={{ user, renovarToken, handleLogin, handleRegister }}
+      value={{ user, renovarToken, handleLogin, handleRegister, logOut }}
     >
       {children}
     </authContext.Provider>

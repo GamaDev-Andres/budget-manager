@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
 import IconMenu from './IconMenu'
 import propTypes from 'prop-types'
+import ButtonLogOut from './ButtonLogOut'
 
 const NavBar = ({ active, closeMenu }) => {
-  console.log(active)
   return (
     <div
-      onClick={() => closeMenu()}
+      onClick={closeMenu}
       className={`${
         active ? ' bg-opacity-50 visible' : 'bg-opacity-0 invisible'
       } transition-all duration-300 fixed  bg-black inset-0 md:hidden`}
@@ -26,13 +26,15 @@ const NavBar = ({ active, closeMenu }) => {
           <Link className="border-b border-blue-700  py-2" to="/">
             Inicio
           </Link>
-          <Link className="border-b border-blue-700  py-2" to="/">
+          <Link className="border-b border-blue-700  py-2" to="/transactions">
             Ver transacciones
           </Link>
           <Link className="border-b border-blue-700  py-2" to="/">
             Crear transacciones
           </Link>
-          <button className="self-start py-2">Salir</button>
+          <ButtonLogOut className="self-start py-2 w-full text-left">
+            Salir
+          </ButtonLogOut>
         </div>
       </div>
     </div>

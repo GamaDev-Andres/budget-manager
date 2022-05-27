@@ -1,14 +1,13 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import useAuthContext from '../context/authContext/hook/useAuthContext'
+import ButtonLogOut from './ButtonLogOut'
 import IconMenu from './IconMenu'
 import NavBar from './NavBar'
 
 const Nav = () => {
   const [isActiveMenu, setIsActiveMenu] = useState(false)
-  const {
-    user: { name }
-  } = useAuthContext()
+  const { user } = useAuthContext()
 
   return (
     <nav className="px-4 py-2 border-b border-gray-400">
@@ -19,7 +18,7 @@ const Nav = () => {
         >
           <IconMenu />
         </button>
-        <h1 className="font-semibold text-xl">{name}</h1>
+        <h1 className="font-semibold text-xl">{user.name}</h1>
         <div className="hidden md:block">
           <Link
             className="border-r border-blue-600 px-2 text-blue-600 font-semibold"
@@ -29,7 +28,7 @@ const Nav = () => {
           </Link>
           <Link
             className="border-r border-blue-600 px-2 text-blue-600 font-semibold"
-            to="/"
+            to="/transactions"
           >
             Ver transacciones
           </Link>
@@ -39,7 +38,9 @@ const Nav = () => {
           >
             Crear transacciones
           </Link>
-          <button className="pl-2 text-blue-600 font-semibold">Salir</button>
+          <ButtonLogOut className="pl-2 text-blue-600 font-semibold">
+            Salir
+          </ButtonLogOut>
         </div>
       </div>
       <NavBar closeMenu={() => setIsActiveMenu(false)} active={isActiveMenu} />
