@@ -1,5 +1,10 @@
+import { useContext } from 'react'
+import { transactionContext } from '../transactionContext'
+
 const useTransactionContext = () => {
-  return <div>useTransactionContext</div>
+  const context = useContext(transactionContext)
+
+  return context
 }
 
 export default useTransactionContext

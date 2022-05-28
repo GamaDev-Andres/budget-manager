@@ -10,6 +10,7 @@ const TransactionProvider = ({ children }) => {
   const createTransaction = useCallback(async (dataTransaction) => {
     try {
       const urlPeticion = url + '/api/transaction'
+      dataTransaction.value = +dataTransaction.value
       const response = await customFetch(urlPeticion, 'POST', dataTransaction)
       if (!response.ok) {
         return { error: response.errors[0]?.msg }
