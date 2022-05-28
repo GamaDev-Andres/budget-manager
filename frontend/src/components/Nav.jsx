@@ -30,13 +30,7 @@ const Nav = () => {
             className="border-r border-blue-600 px-2 text-blue-600 font-semibold"
             to="/transactions"
           >
-            Ver transacciones
-          </Link>
-          <Link
-            className="border-r border-blue-600 px-2 text-blue-600 font-semibold"
-            to="/"
-          >
-            Crear transacciones
+            transacciones
           </Link>
           <ButtonLogOut className="pl-2 text-blue-600 font-semibold">
             Salir
