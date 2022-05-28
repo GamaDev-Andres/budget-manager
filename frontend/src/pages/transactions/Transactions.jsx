@@ -2,7 +2,7 @@ import { NavLink, Outlet } from 'react-router-dom'
 
 const Transactions = () => {
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-6xl mx-auto w-full px-4 ">
       <h1 className="text-2xl font-bold text-blue-600">Transacciones</h1>
       <nav className="flex items-center justify-center mx-auto w-full">
         <div className="flex my-2 text-xs">
