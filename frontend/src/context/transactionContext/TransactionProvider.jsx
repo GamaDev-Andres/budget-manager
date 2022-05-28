@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { customFetch } from '../../utilities/customFetch'
 import { transactionContext } from './transactionContext'
 
@@ -6,6 +6,24 @@ import { transactionContext } from './transactionContext'
 const TransactionProvider = ({ children }) => {
   const [transactions, setTransactions] = useState(null)
   const url = import.meta.env.VITE_URL_SERVER
+
+  useEffect(() => {
+    async function getTransactions() {
+      try {
+        const urlPeticion = url + '/api/transaction'
+        const response = await customFetch(urlPeticion, 'GET')
+        if (!response.ok) {
+          return { error: response.errors[0]?.msg }
+        }
+        console.log(response)
+        setTransactions(response.transactions)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getTransactions()
+    return () => {}
+  }, [])
 
   const createTransaction = useCallback(async (dataTransaction) => {
     try {
@@ -15,6 +33,7 @@ const TransactionProvider = ({ children }) => {
       if (!response.ok) {
         return { error: response.errors[0]?.msg }
       }
+      console.log(response)
       setTransactions(response.transactions)
     } catch (error) {
       console.log(error)
