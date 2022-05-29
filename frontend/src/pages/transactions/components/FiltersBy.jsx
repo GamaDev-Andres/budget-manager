@@ -6,7 +6,6 @@ const FiltersBy = () => {
   const navigate = useNavigate()
 
   const handleChangeCategory = (e) => {
-    console.log(e.target.value)
     if (e.target.value === '') {
       navigate('.')
       return
