@@ -1,7 +1,7 @@
 import propTypes from 'prop-types'
 const ListOfTransactions = ({ children }) => {
   return (
-    <ul className="flex flex-col bg-white max-w-3xl mx-auto md:border md:border-gray-300 md:rounded-2xl">
+    <ul className="mb-4 flex flex-col bg-white max-w-3xl mx-auto md:border md:border-gray-300 md:rounded-2xl">
       {children}
     </ul>
   )

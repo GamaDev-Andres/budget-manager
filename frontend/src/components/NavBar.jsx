@@ -9,7 +9,7 @@ const NavBar = ({ active, closeMenu }) => {
       onClick={closeMenu}
       className={`${
         active ? ' bg-opacity-50 visible' : 'bg-opacity-0 invisible'
-      } transition-all duration-300 fixed  bg-black inset-0 md:hidden`}
+      } transition-all duration-300 fixed  bg-black inset-0 md:hidden z-10`}
     >
       <div
         onClick={(e) => {

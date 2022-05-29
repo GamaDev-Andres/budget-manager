@@ -5,10 +5,10 @@ import useForm from '../../../hooks/useForm'
 import { dateFormat } from '../../../utilities/dateFormat'
 
 export const FormTransaction = () => {
-  const { createTransaction } = useTransactionContext()
+  const { createTransaction, categories } = useTransactionContext()
   const { dataForm, handleChange, resetData } = useForm({
     concept: '',
-    type: '',
+    type: 'ingreso',
     value: '',
     createdAt: dateFormat(),
     category: ''
@@ -34,7 +34,11 @@ export const FormTransaction = () => {
       <h2 className="text-center font-bold text-blue-600 text-xl">
         Crear transacción
       </h2>
-      <form onSubmit={handleSubmit} className="flex flex-col w-full">
+      <form
+        onSubmit={handleSubmit}
+        autoComplete="off"
+        className="flex flex-col w-full"
+      >
         <label className="text-gray-600 text-sm">
           concepto:
           <input
@@ -54,7 +58,9 @@ export const FormTransaction = () => {
             onChange={handleChange}
             className="py-1 px-2 focus:border focus:border-gray-400 border border-gray-300 rounded-md outline-none w-full"
           >
-            <option value="ingreso">Ingreso</option>
+            <option defaultChecked value="ingreso">
+              Ingreso
+            </option>
             <option value="egreso">Egreso</option>
           </select>
         </label>
@@ -77,7 +83,7 @@ export const FormTransaction = () => {
             onChange={handleChange}
             required
             className="outline-none py-1 px-2 rounded-md focus:border focus:border-gray-400 border border-gray-300 w-full"
-            type="date"
+            type="datetime-local"
           />
         </label>
         <label className="text-gray-600 text-sm">
@@ -91,9 +97,9 @@ export const FormTransaction = () => {
             type="text"
           />
           <datalist id="list-categories">
-            <option>algo</option>
-            <option>algo2</option>
-            <option>algo3</option>
+            {categories?.map((category) => (
+              <option key={category.category_id}>{category.name}</option>
+            ))}
           </datalist>
         </label>
         {error && (

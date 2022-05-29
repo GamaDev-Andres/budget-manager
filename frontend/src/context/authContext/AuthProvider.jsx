@@ -52,7 +52,6 @@ const AuthProvider = ({ children }) => {
         logOut()
         return response.errors[0]?.msg
       }
-      console.log(response)
       setUser(response.user)
     } catch (error) {
       console.log(error)

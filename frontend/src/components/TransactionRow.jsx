@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import propTypes from 'prop-types'
 
 const TransactionRow = ({ createdAt, value, concept, type }) => {
