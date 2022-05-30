@@ -22,6 +22,7 @@ const TransactionRowEdit = ({
     updateTransaction,
     deleteTransaction
   } = useTransactionContext()
+
   const transaction = originalTransactions.find(
     (transaction) => transaction.transaction_id === transaction_id
   )
@@ -33,6 +34,16 @@ const TransactionRowEdit = ({
   })
 
   const handleSubmit = async () => {
+    const auxDate = dataForm.date.split('T')[1]
+    const timesArr = auxDate.split(':')
+    timesArr[0] =
+      Number(timesArr[0]) + 2 >= 24
+        ? Number(timesArr[0]) + 2 - 24
+        : Number(timesArr[0]) + 2
+    if (Number(timesArr[0]) < 10) {
+      timesArr[0] = '0' + timesArr[0]
+    }
+    dataForm.date = dataForm.date.split('T')[0] + 'T' + timesArr.join(':')
     await updateTransaction(dataForm, transaction_id)
     handleChangeEdit()
   }
@@ -97,11 +108,17 @@ const TransactionRowEdit = ({
           </button>
         </div>
       </div>
-      <div className="flex flex-col ml-2 pl-2 border-l">
-        <button className="p-1 text-green-600" onClick={handleSubmit}>
+      <div className="flex flex-col ml-2 pl-2 border-l gap-4">
+        <button
+          className="hover:bg-green-600 hover:text-white p-1 text-green-600"
+          onClick={handleSubmit}
+        >
           <IconCheck />
         </button>
-        <button className="p-1 text-red-600" onClick={handleDeleteTransaction}>
+        <button
+          className="hover:bg-red-600 hover:text-white p-1 text-red-600"
+          onClick={handleDeleteTransaction}
+        >
           <IconTrash />
         </button>
       </div>

@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import Account from '../pages/account/Account'
 import Login from '../pages/account/login/Login'
 import Register from '../pages/account/register/Register'
+import Categories from '../pages/categories/Categories'
 import Home from '../pages/home/Home'
 import Page404 from '../pages/page404/Page404'
 import AllTransactions from '../pages/transactions/components/AllTransactions'
@@ -15,6 +16,7 @@ const AppRouter = () => {
     <Routes>
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<Home />} />
+        <Route path="/categories" element={<Categories />} />
         <Route path="/transactions" element={<Transactions />}>
           <Route index element={<AllTransactions />} />
           <Route path="create" element={<FormTransaction />} />

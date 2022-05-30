@@ -92,6 +92,7 @@ export const FormTransaction = () => {
             name="category"
             value={dataForm.category}
             onChange={handleChange}
+            maxLength={25}
             className="outline-none py-1 px-2 rounded-md focus:border focus:border-gray-400 border border-gray-300 w-full"
             list="list-categories"
             type="text"

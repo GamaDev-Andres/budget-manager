@@ -43,6 +43,22 @@ const TransactionProvider = ({ children }) => {
     getCategories()
   }, [])
 
+  const createCategory = useCallback(
+    async (name) => {
+      try {
+        const urlPeticion = url + '/api/category'
+        const response = await customFetch(urlPeticion, 'POST', { name })
+        if (!response.ok) {
+          console.error(response.errors[0]?.msg)
+          return { error: response.errors[0]?.msg }
+        }
+        setCategories([...categories, response.category])
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    [transactions, categories]
+  )
   const createTransaction = useCallback(
     async (dataTransaction) => {
       try {
@@ -68,7 +84,7 @@ const TransactionProvider = ({ children }) => {
         console.log(error)
       }
     },
-    [transactions]
+    [transactions, categories]
   )
   const updateTransaction = useCallback(
     async (dataTransaction, id) => {
@@ -92,6 +108,24 @@ const TransactionProvider = ({ children }) => {
       }
     },
     [transactions]
+  )
+  const deleteCategory = useCallback(
+    async (id) => {
+      try {
+        const urlPeticion = url + '/api/category/' + id
+        const response = await customFetch(urlPeticion, 'DELETE')
+        if (!response.ok) {
+          console.error(response.errors[0]?.msg)
+          return { error: response.errors[0]?.msg }
+        }
+        setCategories(
+          categories.filter((category) => category.category_id !== id)
+        )
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    [categories]
   )
   const deleteTransaction = useCallback(
     async (id) => {
@@ -122,6 +156,8 @@ const TransactionProvider = ({ children }) => {
         createTransaction,
         updateTransaction,
         deleteTransaction,
+        deleteCategory,
+        createCategory,
         categories
       }}
     >

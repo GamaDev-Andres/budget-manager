@@ -29,6 +29,9 @@ const NavBar = ({ active, closeMenu }) => {
           <Link className="border-b border-blue-700  py-2" to="/transactions">
             transacciones
           </Link>
+          <Link className="border-b border-blue-700  py-2" to="/categories">
+            categorias
+          </Link>
 
           <ButtonLogOut className="self-start py-2 w-full text-left">
             Salir

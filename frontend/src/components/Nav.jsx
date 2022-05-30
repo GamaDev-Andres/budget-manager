@@ -18,7 +18,9 @@ const Nav = () => {
         >
           <IconMenu />
         </button>
-        <h1 className="font-semibold text-xl">{user.name}</h1>
+        <h1 className="font-semibold text-xl">
+          <Link to="/">{user.name}</Link>
+        </h1>
         <div className="hidden md:block">
           <Link
             className="border-r border-blue-600 px-2 text-blue-600 font-semibold"
@@ -31,6 +33,12 @@ const Nav = () => {
             to="/transactions"
           >
             transacciones
+          </Link>
+          <Link
+            className="border-r border-blue-600 px-2 text-blue-600 font-semibold"
+            to="/categories"
+          >
+            categorias
           </Link>
           <ButtonLogOut className="pl-2 text-blue-600 font-semibold">
             Salir
