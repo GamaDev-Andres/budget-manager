@@ -19,5 +19,9 @@ export const Transaction = sequelize.define('transactions', {
   value: {
     type: DataTypes.DOUBLE.UNSIGNED,
     allowNull: false
+  },
+  date: {
+    type: DataTypes.DATE,
+    allowNull: false,
   }
 });

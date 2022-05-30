@@ -3,12 +3,17 @@ import { Transaction } from '../models/Transaction.js'
 
 export const createTransaction = async (req, res) => {
 
-  const { value, type, concept, category = null } = req.body
+  const { value, type, concept, category, date } = req.body
   const { user_id } = req.user
   try {
-    const transaction = await Transaction.create({ value, type, concept, category_id: category, user_id })
-    const categoryObj = await Category.findOne({ where: { category_id: transaction.category_id }, attributes: ["name", "category_id"] })
-    const transactionResponse = { ...transaction.toJSON(), category: categoryObj || null }
+
+    let categoryDb = await Category.findOne({ where: { user_id, name: category?.trim() || "" } });
+    if (!categoryDb && category) {
+      categoryDb = await Category.create({ user_id, name: category });
+
+    }
+    const transaction = await Transaction.create({ value, type, concept, category_id: categoryDb?.toJSON().category_id, user_id, date })
+    const transactionResponse = { ...transaction.toJSON(), category: categoryDb || null }
     delete transactionResponse.category_id
     res.json({
       ok: true,
@@ -61,8 +66,9 @@ export const updateTransaction = async (req, res) => {
         errors: [{ msg: "No tiene permiso de actualizar esta transaccion." }]
       })
     }
-    transaction.set({ ...req.body })
-    const [_, category] = await Promise.all([transaction.save(), Category.findOne({ where: { category_id: transaction.category_id }, attributes: ["name", "category_id"] })])
+    const category = await Category.findOne({ where: { user_id, name: req.body.category?.trim() }, attributes: ["name", "category_id"] })
+    transaction.set({ ...req.body, category_id: category?.category_id })
+    await transaction.save()
     const transactionResponse = { ...transaction.toJSON(), category: category || null }
     delete transactionResponse.category_id
     res.json({
