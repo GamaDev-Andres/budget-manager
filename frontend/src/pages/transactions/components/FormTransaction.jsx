@@ -10,7 +10,7 @@ export const FormTransaction = () => {
     concept: '',
     type: 'ingreso',
     value: '',
-    createdAt: dateFormat(),
+    date: dateFormat(),
     category: ''
   })
   const [error, setError] = useState(false)
@@ -30,7 +30,7 @@ export const FormTransaction = () => {
   }
 
   return (
-    <div className="border border-transparent md:border md:border-gray-300 md:p-2 md:rounded-2xl max-w-3xl w-full flex flex-col items-center justify-center mx-auto">
+    <div className="border border-transparent md:border md:border-gray-300 px-4 md:p-2 md:rounded-2xl max-w-3xl w-full flex flex-col items-center justify-center mx-auto">
       <h2 className="text-center font-bold text-blue-600 text-xl">
         Crear transacción
       </h2>
@@ -78,8 +78,8 @@ export const FormTransaction = () => {
         <label className="text-gray-600 text-sm">
           fecha:
           <input
-            name="createdAt"
-            value={dataForm.createdAt}
+            name="date"
+            value={dataForm.date}
             onChange={handleChange}
             required
             className="outline-none py-1 px-2 rounded-md focus:border focus:border-gray-400 border border-gray-300 w-full"

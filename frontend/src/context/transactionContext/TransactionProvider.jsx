@@ -54,6 +54,59 @@ const TransactionProvider = ({ children }) => {
           return { error: response.errors[0]?.msg }
         }
         setTransactions([...transactions, response.transaction])
+        if (
+          response.transaction.category &&
+          !categories.some(
+            (category) =>
+              category.category_id ===
+              response.transaction.category?.category_id
+          )
+        ) {
+          setCategories([...categories, response.transaction.category])
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    [transactions]
+  )
+  const updateTransaction = useCallback(
+    async (dataTransaction, id) => {
+      try {
+        const urlPeticion = url + '/api/transaction/' + id
+        dataTransaction.value = +dataTransaction.value
+        const response = await customFetch(urlPeticion, 'PUT', dataTransaction)
+        if (!response.ok) {
+          console.error(response.errors[0]?.msg)
+          return { error: response.errors[0]?.msg }
+        }
+        setTransactions(
+          transactions.map((transaction) =>
+            transaction.transaction_id === id
+              ? response.transaction
+              : transaction
+          )
+        )
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    [transactions]
+  )
+  const deleteTransaction = useCallback(
+    async (id) => {
+      try {
+        const urlPeticion = url + '/api/transaction/' + id
+        const response = await customFetch(urlPeticion, 'DELETE')
+        if (!response.ok) {
+          console.error(response.errors[0]?.msg)
+          return { error: response.errors[0]?.msg }
+        }
+        setTransactions(
+          transactions.filter(
+            (transaction) => transaction.transaction_id !== id
+          )
+        )
       } catch (error) {
         console.log(error)
       }
@@ -64,8 +117,11 @@ const TransactionProvider = ({ children }) => {
   return (
     <transactionContext.Provider
       value={{
+        originalTransactions: transactions,
         transactions: transactionsFormatted,
         createTransaction,
+        updateTransaction,
+        deleteTransaction,
         categories
       }}
     >

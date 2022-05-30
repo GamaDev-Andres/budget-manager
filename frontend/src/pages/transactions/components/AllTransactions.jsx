@@ -28,7 +28,6 @@ const AllTransactions = () => {
     }
     return transactions
   }, [transactions, searchParams])
-
   return (
     <ListOfTransactions>
       <FiltersBy />

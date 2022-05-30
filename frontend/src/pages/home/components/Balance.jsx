@@ -1,7 +1,6 @@
 import propTypes from 'prop-types'
 
 const Balance = ({ children }) => {
-  console.log(children)
   return (
     <div className="bg-white w-full md:pl-4">
       <h1 className="text-[35px] text-gray-600 font-semibold text-center">

@@ -14,7 +14,7 @@ const FiltersBy = () => {
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-2 px-4 py-2 mt-4 w-full">
+    <div className="flex flex-wrap items-center gap-2 px-4 py-2 mt-4 w-full text-sm">
       <span>Filtra por:</span>
       <div className="flex flex-wrap items-center border border-gray-200 md:border-none md:gap-2">
         <Link
