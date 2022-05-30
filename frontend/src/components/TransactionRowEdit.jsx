@@ -34,16 +34,6 @@ const TransactionRowEdit = ({
   })
 
   const handleSubmit = async () => {
-    const auxDate = dataForm.date.split('T')[1]
-    const timesArr = auxDate.split(':')
-    timesArr[0] =
-      Number(timesArr[0]) + 2 >= 24
-        ? Number(timesArr[0]) + 2 - 24
-        : Number(timesArr[0]) + 2
-    if (Number(timesArr[0]) < 10) {
-      timesArr[0] = '0' + timesArr[0]
-    }
-    dataForm.date = dataForm.date.split('T')[0] + 'T' + timesArr.join(':')
     await updateTransaction(dataForm, transaction_id)
     handleChangeEdit()
   }

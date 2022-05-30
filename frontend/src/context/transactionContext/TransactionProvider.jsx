@@ -9,7 +9,7 @@ const TransactionProvider = ({ children }) => {
   const [categories, setCategories] = useState(null)
   const url = import.meta.env.VITE_URL_SERVER
   const transactionsFormatted = useMemo(
-    () => (transactions ? formatAndSortTransactions(transactions) : null),
+    () => (transactions ? formatAndSortTransactions(transactions, true) : null),
     [transactions]
   )
   useEffect(() => {

@@ -7,6 +7,6 @@ export const sortTransactions = (transactions) => {
     return dateB - dateA
   })
 }
-export const formatAndSortTransactions = (transactions) => {
-  return formatDateforTransactions(sortTransactions(transactions))
+export const formatAndSortTransactions = (transactions, withPlus2) => {
+  return formatDateforTransactions(sortTransactions(transactions), withPlus2)
 }
