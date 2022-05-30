@@ -5,7 +5,7 @@ import { sequelize } from './sequelize.js';
 
 const conectarDB = async () => {
   try {
-    await sequelize.sync({ alter: true, force: false });
+    await sequelize.sync();
     console.log("DB ONLINE");
   } catch (error) {
     console.log(error);
